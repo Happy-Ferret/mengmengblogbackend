@@ -1,0 +1,26 @@
+{
+  "name": "mengmengblogbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YongHaoWu/mengmengblogbackend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YongHaoWu/mengmengblogbackend/issues"
+  },
+  "homepage": "https://github.com/YongHaoWu/mengmengblogbackend#readme"
+}
