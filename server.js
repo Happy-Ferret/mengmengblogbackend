@@ -61,6 +61,20 @@ app.post('/post/:postID', function (req, res) {
     })
 })
 
+//读取具体文章
+app.get('/post/:postID', function (req, res) {
+    let postID = req.params.postID
+    if(postID) {
+        postModel.findOne({ID: postID}, function (err, returnPost) {
+            if (err) return console.log("error", err)
+            if (returnPost) {
+                console.log("returnPost: ", returnPost)
+            }
+        });
+    }
+    res.send("end")
+})
+
 //  /del_user 页面响应
  app.get('/del_user', function (req, res) {
    console.log("/del_user 响应 DELETE 请求 ");
