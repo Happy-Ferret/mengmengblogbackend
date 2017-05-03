@@ -48,9 +48,8 @@ app.post('/post/:postID', function (req, res) {
 
     post.ID = req.params.postID
     post.save()
-        .then(returnPost => console.log("returnPost: ", returnPost))
+        .then(returnPost => res.json(returnPost))
         .catch(err => console.log(err))
-    res.send("end")
 })
 
 //读取具体文章
@@ -58,7 +57,7 @@ app.get('/post/:postID', function (req, res) {
     let postID = req.params.postID
     if(postID) {
         postModel.findOne({ID: postID})
-            .then(returnPost => console.log("returnPost: ", returnPost))
+            .then(returnPost => res.json(returnPost))
             .catch(err => console.log(err))
     }
     res.send("end")
@@ -67,7 +66,7 @@ app.get('/post/:postID', function (req, res) {
 //读取全部文章
 app.get('/posts', function (req, res) {
     postModel.find({})
-        .then(returnPost => console.log("returnPost: ", returnPost))
+        .then(returnPost => res.json(returnPost))
         .catch(err => console.log(err))
     res.send("end")
 })
@@ -81,7 +80,7 @@ app.put('/post/:postID', function (req, res) {
             {ID: postID},
             {title: post.title, contents: post.contents, comments: post.comments },
             {new: true})
-            .then(console.log("success"))
+            .then(returnPost => res.json(returnPost))
             .catch(err => console.log(err))
     }
     res.send("end")
