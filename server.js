@@ -28,8 +28,12 @@ const postModel = mongoose.model('postModel', postSchema);
 
 
 // Server part
+var bodyParser = require('body-parser');
 
 var app = express();
+
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 
 //  主页输出 "Hello World"
 app.get('/', function (req, res) {
@@ -39,16 +43,19 @@ app.get('/', function (req, res) {
 
 
 //增加文章
-app.post('/post/:postId', function (req, res) {
-    res.send('增加文章' + req.body);
+app.post('/post/:postID', function (req, res) {
     let post = new postModel(req.body)
+
+    post.ID = req.params.postID
     post.save(function (err) {
         if (err) {
-            return res.status(400).send({
-                message: getErrorMessage(err)
-            })
+            return res.send(err)
         } else {
-            res.send(post);
+            console.log("id: "+req.params.postID)
+            console.log("req.body", req.body)
+            console.log("post ", post)
+            res.end()
+            // res.send(post);
             // res.json(post)
         }
     })
