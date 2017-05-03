@@ -66,12 +66,25 @@ app.get('/post/:postID', function (req, res) {
     let postID = req.params.postID
     if(postID) {
         postModel.findOne({ID: postID}, function (err, returnPost) {
-            if (err) return console.log("error", err)
-            if (returnPost) {
+            if (!err){
                 console.log("returnPost: ", returnPost)
+            }{
+                throw err;
             }
         });
     }
+    res.send("end")
+})
+
+//读取全部文章
+app.get('/posts', function (req, res) {
+    postModel.find({}, function(err, returnPostbacks) {
+        if (!err){
+            console.log(returnPostbacks);
+        } else {
+            throw err;
+        }
+    });
     res.send("end")
 })
 
