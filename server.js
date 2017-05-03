@@ -87,6 +87,17 @@ app.put('/post/:postID', function (req, res) {
     res.send("end")
 })
 
+// 删除具体文章
+app.delete('/post/:postID', function (req, res) {
+    let postID = req.params.postID
+    if(postID) {
+        postModel.find({ID: postID}).remove()
+            .then(() => console.log("delete success: "))
+            .catch(err => console.log(err))
+    }
+    res.send("end")
+})
+
 var server = app.listen(8081, function () {
 
   var host = server.address().address
