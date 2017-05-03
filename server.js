@@ -47,44 +47,43 @@ app.post('/post/:postID', function (req, res) {
     let post = new postModel(req.body)
 
     post.ID = req.params.postID
-    post.save(function (err) {
-        if (err) {
-            return res.send(err)
-        } else {
-            console.log("id: "+req.params.postID)
-            console.log("req.body", req.body)
-            console.log("post ", post)
-            res.end()
-            // res.send(post);
-            // res.json(post)
-        }
-    })
+    post.save()
+        .then(returnPost => console.log("returnPost: ", returnPost))
+        .catch(err => console.log(err))
+    res.send("end")
 })
 
 //读取具体文章
 app.get('/post/:postID', function (req, res) {
     let postID = req.params.postID
     if(postID) {
-        postModel.findOne({ID: postID}, function (err, returnPost) {
-            if (!err){
-                console.log("returnPost: ", returnPost)
-            }{
-                throw err;
-            }
-        });
+        postModel.findOne({ID: postID})
+            .then(returnPost => console.log("returnPost: ", returnPost))
+            .catch(err => console.log(err))
     }
     res.send("end")
 })
 
 //读取全部文章
 app.get('/posts', function (req, res) {
-    postModel.find({}, function(err, returnPostbacks) {
-        if (!err){
-            console.log(returnPostbacks);
-        } else {
-            throw err;
-        }
-    });
+    postModel.find({})
+        .then(returnPost => console.log("returnPost: ", returnPost))
+        .catch(err => console.log(err))
+    res.send("end")
+})
+
+//修改文章
+app.put('/post/:postID', function (req, res) {
+    let post = new postModel(req.body)
+    let postID = req.params.postID
+    if(postID) {
+        postModel.findOneAndUpdate(
+            {ID: postID},
+            {title: post.title, contents: post.contents, comments: post.comments },
+            {new: true})
+            .then(console.log("success"))
+            .catch(err => console.log(err))
+    }
     res.send("end")
 })
 
